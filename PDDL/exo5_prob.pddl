@@ -1,0 +1,6 @@
+(define (problem GRAPH)
+(:domain NOEUDS)
+(:objects A B C D E)
+(:INIT (ARC A B) (ARC B C) (ARC C D) (ARC D E) (ARC A B) (AGENTPOS A))
+(:goal (AGENTPOS E))
+)

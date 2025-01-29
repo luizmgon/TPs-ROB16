@@ -13,19 +13,21 @@ for i=1:size(Starts,2)
     xTrue=Starts(:,i);
     k=1;
     while max(abs(dist(xTrue,xGoal)))>.05 && k<10000
-        
+
         % Compute Control
         u=BicycleToPoseControl(xTrue,xGoal);
-        
+
         % Simulate Vehicle motion
         xTrue = SimulateBicycle(xTrue,u);
-        
+
+        disp(k);
+
         k=k+1;
     end;
-    
+
     % Store performances
     Perf=[Perf k];
-    
+
 end;
 % Display mean performances
 disp(['Mean goal reaching time : ', num2str(mean(Perf))]);

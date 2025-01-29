@@ -1,0 +1,12 @@
+(define (problem singe-bananes01)
+  (:domain SINGES)
+  (:objects A B C)
+  (:init 
+    (singePos A) 
+    (caissePos B) 
+    (bananaPos C) 
+    (bas) 
+    (notHolding)
+  )
+  (:goal (holding))
+)

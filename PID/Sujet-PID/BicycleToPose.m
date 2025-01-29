@@ -7,24 +7,24 @@ a=rand()*2*pi;
 xTrue = [cos(a);sin(a);rand()*2*pi];
 
 %Storage for position and errors
-XStore = NaN*zeros(3,10000);
-XErrStore = NaN*zeros(5,10000);
+XStore = NaN*zeros(3,2200);
+XErrStore = NaN*zeros(5,2200);
 k=1;
 
 % loop until goal reached or max time
 while max(abs(dist(xTrue,xGoal)))>.05 && k<10000
-    
+
     % Compute Control
     u=BicycleToPoseControl(xTrue,xGoal);
-    
+
     % Simulate Vehicle motion
     [xTrue,u]  = SimulateBicycle(xTrue,u);
-    
+
     k=k+1;
     %store results:
     XErrStore(:,k) = [dist(xTrue,xGoal);u(1);u(2)];
     XStore(:,k) = xTrue;
-    
+
     % plot every 100 updates
     if(mod(k-2,100)==0)
         DoBicycleGraphics(xTrue,XStore,XErrStore);

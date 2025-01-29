@@ -7,24 +7,26 @@ a=rand()*2*pi;
 xTrue = [2*cos(a);2*sin(a);rand()*2*pi];
 
 %Storage for position and errors
-XStore = NaN*zeros(3,10000);
-XErrStore = NaN*zeros(3,10000);
+XStore = NaN*zeros(3,3000);
+XErrStore = NaN*zeros(3,3000);
 k=1;
 
 % loop until goal reached or max time
-while max(abs(dist(xTrue,xGoal)))>.06 && k<10000
-    
+while max(abs(dist(xTrue,xGoal)))>.005 && k<10000
+
     % Compute Control
     u=UnicycleToPoseControl(xTrue,xGoal);
-    
+
     % Simulate Vehicle motion
     [xTrue,u] = SimulateUnicycle(xTrue,u);
-    
+
     k=k+1;
     %store results:
     XErrStore(:,k) = dist(xTrue,xGoal);
     XStore(:,k) = xTrue;
-    
+
+    disp(k);
+
     % plot every 100 updates
     if(mod(k-2,100)==0)
         DoUnicycleGraphics(xTrue,XStore,XErrStore);

@@ -14,23 +14,25 @@ k=1;
 while max(abs(dist(xTrue(1:2,1),Path(1:2,end))))>.005 && k<20000
     % Compute Control
     u=BicycleToPathControl(xTrue,Path);
-    
     % Simulate Vehicle motion
     [xTrue,u] = SimulateBicycle(xTrue,u);
-    
+
     k=k+1;
     %store results:
     error=abs(p_poly_dist(xTrue(1),xTrue(2),Path(1,:),Path(2,:)));
     XErrStore(:,k) = [error;u'];
     XStore(:,k) = xTrue;
-    
+
     % plot every 100 updates
     if(mod(k-2,100)==0)
         DoBicycleGraphicsPath(xTrue,XStore,Path);
         drawnow;
     end;
-    
+
 end;
+
+clear BicycleToPathControl;
+
 
 % Draw final position and error curves
 DoBicycleGraphicsPath(xTrue,XStore,Path);
